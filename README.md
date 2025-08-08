@@ -1,68 +1,76 @@
-<details>
-<summary><b><i>📜 naiveMatcher.c</i></b></summary>
+# 📚 DSA-LAB – Classical String Matching Implementations  
 
-<span style="color:#555;">🔍 Brute force pattern matching</span> – checks for every possible shift of the pattern in the text to see if it matches.  
-No preprocessing is performed.
+---
+**Coursework:** Implemented as part of the **DSA-LAB** course.
 
-<b>⏳ T.C</b> – <span style="color:#d14;">O(mn)</span> in worst case, where *n* = length of text, *m* = length of pattern.
+---
 
-</details>
+## 📜 Problem Statement  
+Given two strings — **text** (length *n*) and **pattern** (length *m*) — find **all positions** in the text where the pattern occurs.  
 
-<details>
-<summary><b><i>🔢 RabinKarpMatcher.c</i></b></summary>
+The goal is to **implement** and **compare** multiple *classical string matching algorithms*, analyzing their performance and understanding their trade-offs across different scenarios.  
 
-<span style="color:#555;">💡 Hash-based matching</span> – uses the **rolling hash** technique to compare hash values quickly,  
-verifying characters only when hashes match.
+---
 
-<b>⏳ T.C</b> – Average: <span style="color:#28a745;">O(n + m)</span>, Worst: <span style="color:#d14;">O(nm)</span> (many hash collisions).
+## 💼 Industry Relevance  
+String matching algorithms are **core building blocks** in a wide range of industries:  
 
-</details>
+- 🔍 **Search Engines** – Matching query terms against large-scale document databases.  
+- 🛡️ **Cybersecurity** – Detecting malicious code patterns in files and network traffic.  
+- 🧬 **Bioinformatics** – Matching DNA/RNA sequences to reference genomes.  
+- ✍️ **Text Editors & IDEs** – Implementing “Find” functionality, syntax highlighting, and autocompletion.  
+- 📦 **Data Compression** – Using substring detection in algorithms like LZ77, LZ78, and Arithmetic Coding.   
 
-<details>
-<summary><b><i>⚙️ FiniteAutomataMatcher.c</i></b></summary>
+---
 
-<span style="color:#555;">🤖 Automaton-driven matching</span> – precomputes a **transition table** for the pattern and processes the text in one pass by following state transitions.
+## 🗂️ Algorithm Implementations  
 
-<b>⏳ T.C</b> – Preprocessing: <span style="color:#28a745;">O(m × |Σ|)</span>, Matching: <span style="color:#28a745;">O(n)</span>.
+---
 
-</details>
+### 📘 1. Naive Matcher (`naiveMatcher.c`)
+> **Idea**: Check every possible alignment of the pattern in the text and compare character by character.  
+- **Time Complexity**: O(*m·n*) in worst case.  
+- **Pros**: Simple to implement.  
+- **Cons**: Inefficient for large text and repetitive patterns.  
 
-<details>
-<summary><b><i>🧩 KMPMatcher.c</i></b></summary>
+---
 
-<span style="color:#555;">📚 Classic linear-time algorithm</span> – builds an **LPS (Longest Prefix Suffix)** array,  
-allowing pattern matching without re-checking matched characters.
+### 📗 2. Rabin–Karp Algorithm (`RabinKarpMatcher.c`)
+> **Idea**: Use hashing to compare the pattern with substrings of text quickly. If hashes match, verify by direct comparison.  
+- **Time Complexity**: O(*m + n*) average, O(*m·n*) worst case.  
+- **Pros**: Efficient for multiple pattern matching.  
+- **Cons**: Hash collisions can slow it down.  
 
-<b>⏳ T.C</b> – Preprocessing: <span style="color:#28a745;">O(m)</span>, Matching: <span style="color:#28a745;">O(n)</span>.
+---
 
-</details>
+### 📙 3. Finite Automata Matcher (`FiniteAutomataMatcher.c`)
+> **Idea**: Precompute a finite automaton that processes the text in one pass to find matches.  
+- **Time Complexity**: O(*m + n·Σ*) preprocessing, O(*n*) search.  
+- **Pros**: Extremely fast searching after preprocessing.  
+- **Cons**: Large memory usage for big alphabets.  
 
-<details>
-<summary><b><i>🌳 SuffixTrees.c</i></b></summary>
+---
 
-<span style="color:#555;">🗂️ Advanced text index</span> – builds a **suffix tree** for ultra-fast pattern queries. Here can search for multiple patterns after preprocessing. 
+### 📕 4. Knuth–Morris–Pratt (KMP) Algorithm (`KMPMatcher.c`)
+> **Idea**: Preprocess the pattern to create an LPS (Longest Prefix Suffix) array to skip unnecessary comparisons.  
+- **Time Complexity**: O(*m + n*).  
+- **Pros**: Efficient for long texts and repetitive patterns.  
+- **Cons**: Slightly harder to implement than Naive.  
 
-<b>⏳ T.C</b> – Preprocessing: <span style="color:#28a745;">O(n)</span>, Query: <span style="color:#28a745;">O(m)</span>.
+---
 
-</details>
+### 📒 5. Suffix Trees (`SuffixTrees.c`)
+> **Idea**: Construct a suffix tree for the text to enable O(*m*) pattern search.  
+- **Time Complexity**: O(*n*) construction, O(*m*) search.  
+- **Pros**: Extremely fast pattern matching.  
+- **Cons**: Complex to implement, high memory usage.  
 
-<details>
-<summary><b><i>🔎 FindingKeywords.c</i></b></summary>
+---
 
-<span style="color:#555;">📖 Multiple-pattern search</span> – searches for set of keywords in C-language **simultaneously** for efficient lookups.
+### 📓 6. Arithmetic Coding (`ArithmeticCoding.c`)
+> **Idea**: Encodes data into a single fractional number between 0 and 1 based on symbol probabilities, allowing near-optimal compression.  
+- **Time Complexity**: O(*n*) for both encoding and decoding.  
+- **Pros**: High compression ratio close to entropy limits.  
+- **Cons**: Slower than simpler methods like Huffman coding.  
 
-<b>⏳ T.C</b> – Preprocessing: <span style="color:#28a745;">O(sum of lengths of keywords + |Σ|)</span>,  
-Query: <span style="color:#28a745;">O(n + z)</span>, where *z* = number of matches.
-
-</details>
-
-<details>
-<summary><b><i>📦 ArithmeticCoding.c</i></b></summary>
-
-<span style="color:#555;">🖥️ Compression technique</span> –  
-- **Encoding**: Compresses a given string into a unique decimal.  
-- **Decoding**: Reconstructs the original string from the decimal.
-
-<b>⏳ T.C</b> – <span style="color:#28a745;">O(n)</span> for both encoding and decoding.
-
-</details>
+---
